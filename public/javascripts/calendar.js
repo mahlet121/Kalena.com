@@ -141,12 +141,16 @@ $(document).ready(function() {
             newTask.taskDescription = $("#taskDescription").val().trim();
             // This is fake data for now, will eventually come from session variable
             newTask.taskRequester = 5;
+            newTask.taskCalendar = 1;
             console.log(newTask);            
 
             $.ajax({
                 url: '/task/new', 
                 method: "POST",
-                data: newTask
+                data: newTask,
+                xhrFields: {
+                    withCredentials: true
+                    }
                 })
                 .done(function(response){
                     console.log(response);

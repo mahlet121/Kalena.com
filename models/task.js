@@ -1,7 +1,7 @@
 module.exports = function (sequelize, DataTypes) {
     var Task = sequelize.define("tasks", {
       taskCalendar: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         validate: {
           notNull: true,
           notEmpty: true
@@ -13,7 +13,7 @@ module.exports = function (sequelize, DataTypes) {
           isAlphanumeric: true,
           notNull: true,
           notEmpty: true,
-          len: [5, 100]
+          len: [2, 100]
         }
       },
       taskDescription: DataTypes.TEXT,
@@ -25,7 +25,7 @@ module.exports = function (sequelize, DataTypes) {
         }
       },
       taskRequester: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         validate: {
           notNull: true,
           notEmpty: true
@@ -38,8 +38,7 @@ module.exports = function (sequelize, DataTypes) {
         type: DataTypes.DATE,
         validate: {
           notEmpty: true,
-          notNull: true,
-          isDate: true
+          notNull: true
         }
       }
     }, {
