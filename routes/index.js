@@ -6,4 +6,6 @@ router.get('/', function (req, res, next) {
     res.render('index.hbs', {title: 'Kalena'});
 });
 
+
+
 module.exports = router;

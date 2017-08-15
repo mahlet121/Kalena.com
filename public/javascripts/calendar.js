@@ -126,22 +126,45 @@ $(document).ready(function() {
 
         $("#taskDetails").show();
 
-        $("#taskDetails .modalContent").html('<form>Name:<br><input type="text" id="name"><br>Task title:<br><input type="text"  id="title"><br>Task detail:<br><textarea class="form-control" rows="3" id="detail"></textarea><br><br><input type="submit" value="Submit" id="submit"></form>');
-        $("#submit").on("click", document, function() {
+        $("#taskDetails .modalContent").html('\
+            <form>Task Name:<br><input type="text" id="taskName">\
+            <br>Task Date and Time:<br><input type="datetime-local"  id="taskDate">\
+            <br>Task Description:<br><textarea class="form-control" rows="3" id="taskDescription"></textarea>\
+            <br><br><input type="submit" value="Submit" id="submit">\
+            </form>');
+        $("#submit").on("click", document, function(event) {
+            event.preventDefault();
+            var newTask = {};
+
+            newTask.taskName = $("#taskName").val().trim();
+            newTask.taskDate = $("#taskDate").val().trim();
+            newTask.taskDescription = $("#taskDescription").val().trim();
+            // This is fake data for now, will eventually come from session variable
+            newTask.taskRequester = 5;
+            console.log(newTask);            
+
+            $.ajax({
+                url: '/task/new', 
+                method: "POST",
+                data: newTask
+                })
+                .done(function(response){
+                    console.log(response);
+                    // callback
+                    $(".modal").animate({
+                        "opacity": 0
+                    }, "fast",
+                    // animation complete callback
+                    function() {
+                            console.log("Animation complete");
+                            $(".modal").css("display", "none");
+                        });
+                    });
+                  
+            });
 
 
-
-            $(".modal").animate({
-                    "opacity": 0
-                },
-                // animation speed
-                "fast",
-                // animation complete callback
-                function() {
-                    console.log("Animation complete");
-                    $(".modal").css("display", "none");
-                });
-        });
+            
     });
 
 

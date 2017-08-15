@@ -6,8 +6,8 @@ router.get('/:id', function(req, res, next){
     res.send('test');
 });
 
-router.post('/submit/', function(req, res, next){
-    res.send('test');
+router.post('/new', function(req, res){
+    res.send('New task request accepted!');
 });
 
 module.exports = router;
