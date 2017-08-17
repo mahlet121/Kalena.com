@@ -63,7 +63,6 @@ app.use('/', index);
 app.use('/calendar', calendarRoute);
 app.use('/user', userRoute);
 app.use('/task', taskRoute);
-// app.use('/task/new', taskRoute);
 app.use('/message', messageRoute);
 
 // uncomment after placing your favicon in /public

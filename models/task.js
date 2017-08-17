@@ -1,48 +1,25 @@
 module.exports = function (sequelize, DataTypes) {
     var Task = sequelize.define("tasks", {
       taskCalendar: {
-        type: DataTypes.INTEGER,
-        validate: {
-          notNull: true,
-          notEmpty: true
-        }
+        type: DataTypes.STRING
       },
       taskName: {
-        type: DataTypes.STRING,
-        validate: {
-          isAlphanumeric: true,
-          notNull: true,
-          notEmpty: true,
-          len: [2, 100]
-        }
+        type: DataTypes.STRING
       },
       taskDescription: DataTypes.TEXT,
       taskAccepted: {
         type: DataTypes.BOOLEAN,
         default: false,
-        validate: {
-          notNull: true
-        }
       },
       taskRequester: {
-        type: DataTypes.INTEGER,
-        validate: {
-          notNull: true,
-          notEmpty: true
-        }
+        type: DataTypes.STRING
       },
       taskAccepter: {
         type: DataTypes.STRING
       },
       taskDate: {
-        type: DataTypes.DATE,
-        validate: {
-          notEmpty: true,
-          notNull: true
-        }
+        type: DataTypes.DATE
       }
-    }, {
-      timestamps: false
     });
 
   return Task;
