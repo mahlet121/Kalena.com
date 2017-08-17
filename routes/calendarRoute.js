@@ -38,11 +38,11 @@ router.get('/api/:id', function (req, res, next) {
     }
 });
 
-<<<<<<< HEAD
+// <<<<<<< HEAD
 
 
 
-=======
+// =======
 //get all calendars
 router.get('/:id', function (req, res, next) {
       //return specific user
@@ -57,7 +57,7 @@ router.get('/:id', function (req, res, next) {
           catchErr(err);
       });
 });
->>>>>>> upstream/master
+//>>>>>>> upstream/master
 
 
 router.post('/api/calendar', jsonParser, function(req, res, next){
@@ -172,12 +172,12 @@ function createCal(newCalendar, cb){
 function catchErr(err){
   console.log("");
   console.log("~~~ERROR~~~ERROR~~~ERROR~~~ERROR~~~ERROR~~~ERROR~~~ERROR~~~ERROR~~~");
-<<<<<<< HEAD
+//<<<<<<< HEAD
   console.log(err.Error);
-=======
+//=======
 
   console.log("\n sequelize error: \n" + err.SequelizeValidationError);
->>>>>>> upstream/master
+//>>>>>>> upstream/master
 }
 
 

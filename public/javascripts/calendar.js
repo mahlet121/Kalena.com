@@ -121,7 +121,7 @@ $(document).ready(function() {
         width: '97%'
       });
       sidebarOpen = false;
-      $("#sidebarToggle").html("show");
+      $("#sidebarToggle").html("&#10095;&#10095;");
     } else {
       $("#sidebar").animate({
         left: '0%'
@@ -129,7 +129,7 @@ $(document).ready(function() {
       $("#calendar").animate({
         width: '75%'
       });
-      $("#sidebarToggle").html("hide");
+      $("#sidebarToggle").html("&#10094;&#10094");
       sidebarOpen = true;
     }
   });
