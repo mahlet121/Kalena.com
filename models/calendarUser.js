@@ -6,13 +6,10 @@ module.exports = function (sequelize, DataTypes) {
         calendarUserEmail: {
             type: DataTypes.STRING,
             validate: {
-<<<<<<< HEAD
+
                 notEmpty: true,
                 isEmail: true
-=======
-                //notNull: true,
-                notEmpty: true
->>>>>>> 34de67f1631ac964e9207bdac377605edad859e8
+
             }
         },
         calendarID: {

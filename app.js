@@ -25,7 +25,7 @@ var taskRoute = require('./routes/taskRoute');
 
 var app = express();
 
-<<<<<<< HEAD
+
 var Session = models.sequelize.define('Sessions', {
     sid: {
         type: models.Sequelize.STRING,
@@ -52,14 +52,13 @@ var store = new SequelizeStore({
     db: models.sequelize
 });
 
-=======
->>>>>>> 34de67f1631ac964e9207bdac377605edad859e8
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-<<<<<<< HEAD
+
 app.use(session({
     secret: 'super secret session key please do not do a leak',
     resave: false,
@@ -70,8 +69,7 @@ app.use(session({
 store.sync({
     force: true
 });
-=======
->>>>>>> 34de67f1631ac964e9207bdac377605edad859e8
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'express-handlebars');
@@ -82,7 +80,7 @@ passport.use(UserDB.createStrategy());
 passport.serializeUser(UserDB.serializeUser());
 passport.deserializeUser(UserDB.deserializeUser());
 
-<<<<<<< HEAD
+
 app.post('/login', function(req, res, next){
     passport.authenticate('local', function(err, user){
         if(err) return next(err);
@@ -98,10 +96,10 @@ app.post('/login', function(req, res, next){
                 redirect:'/calendar'
             });
     })(req, res, next);
-=======
+
 app.post('/login', passport.authenticate('local'), function(req, res){
     res.send('logged in');
->>>>>>> 34de67f1631ac964e9207bdac377605edad859e8
+
 });
 
 app.post('/create', function(req, res){
@@ -112,7 +110,7 @@ app.post('/create', function(req, res){
         email: req.body.email,
         username: req.body.firstName + req.body.lastName
     };
-<<<<<<< HEAD
+
     UserDB.register(newUser, req.body.password, function (err, result) {
         if(err) res.send({
             valid: false,
@@ -129,7 +127,7 @@ app.post('/create', function(req, res){
 
 app.get('/logout', function (req, res) {
     req.session.destroy();
-=======
+
     UserDB.register(newUser, req.body.password, function(err, result){
         console.log(err, res);
         res.send(result);
@@ -138,7 +136,7 @@ app.get('/logout', function (req, res) {
 
 app.get('/logout', function(req, res){
     req.logout();
->>>>>>> 34de67f1631ac964e9207bdac377605edad859e8
+
     res.send('loggedout');
 });
 
@@ -168,5 +166,5 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error.hbs');
 });
-
+});
 module.exports = app;

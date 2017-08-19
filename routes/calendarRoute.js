@@ -3,7 +3,6 @@ var router = express.Router();
 var models = require("../models");
 var randomstring = require("randomstring");
 var bodyParser = require('body-parser');
-<<<<<<< HEAD
 var jsonParser = bodyParser.json();
 var urlencodedParser = bodyParser.urlencoded({extended: false});
 
@@ -21,7 +20,6 @@ function loggedIn(req, res, next) {
 router.all('*', loggedIn, function (req, res, next) {
     next();
 });
-=======
 
 var randomString = require('randomstring');
 
@@ -31,7 +29,7 @@ var urlencodedParser = bodyParser.urlencoded({extended: false});
 
 
 
->>>>>>> 34de67f1631ac964e9207bdac377605edad859e8
+
 
 router.post('/', function (req, res, next) {
     console.log(req.body);
@@ -56,14 +54,13 @@ router.post('/', function (req, res, next) {
             isOwner: true,
             calendarID: res.dataValues.calendarId
         });
-<<<<<<< HEAD
+
         models.calendarUser.bulkCreate(calendarUsers).then(function (userResult) {
             return models.calendarUser.findAll();
         }).then(function (returnUsers) {
             console.log(returnUsers);
-        })
-    })
-=======
+        });
+    });
     }
 });
 
