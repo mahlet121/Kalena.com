@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,32 +6,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CALENDAR NAME: {{data.calendarname}}</title>
+  <title>CALENDAR NAME: {{calinfo.calendarName}}</title>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
   <link rel="stylesheet" href="/stylesheets/style.css" >
   <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto:100|Saira+Extra+Condensed" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
 
   <style>
-  body{
+body{
     padding: 0;
     background-color: #fff;
   }
   html{
     background-color: #fff;
   }
-  
+  .fc-month-button fc-button fc-state-default fc-corner-right fc-state-active{
+  color:#fff !important;
+}
   .fc .fc-button-group>:first-child{
+    background-color: #4897D8 !important;
     border-top-left-radius: 20px !important;
     border-bottom-left-radius: 20px !important;
-    color: #4897D8;
+    color: #000;
     font-weight: bold;
     border: solid 2px;
     border-color: #4897D8;
+  }
+  #calendar .fc .fc-button-group>:first-child:visited{
+    background-color: red;
   }
   /*.fc-state-default.fc-corner-right {
     border-top-right-radius: 26px !important;
@@ -43,50 +50,70 @@
   .fc-state-default.fc-corner-right {
     border-top-right-radius: 26px !important;
     border-bottom-right-radius: 26px !important;
-    color: #fff;
+    color: #000;
     font-weight: bold;
     border: solid 2px;
     border-color: #4897D8;
     background-color: #4897D8;
     
 }
+.fc-state-default.fc-corner-left button{
+  background-color: #4897D8 !important;
+  }
 .fc-state-default.fc-corner-left {
+   
     border-top-right-radius: 20px !important;
     border-bottom-right-radius: 20px !important;
-    color: #4897D8;
+    color: #000;
     font-weight: bold;
     border: solid 2px;
     border-color: #4897D8;
-    background-color: #4897D8;
+    background-color: #4897D8 !important;
 }
 .fc-state-default.fc-corner-left {
     border-top-left-radius: 20px !important;
     border-bottom-left-radius: 20px !important;
-    color: #fff;
+    color: #000;
     font-weight: bold;
     border: solid 2px;
     border-color: #4897D8;
+    background-color: #4897D8;
+  
 }
 .fc .fc-button-group>*{
-    color: #fff;
+   background-color: #4897D8 !important;
+    color: #000;
     font-weight: bold;
     border: solid 2px;
     border-color: #4897D8;  
 }
+.fc .fc-button-group>*:visited{
+  color:red;
+
+}
+
+
+
+.fc-icon-right-single-arrow:after{
+  color: #000;
+}
+
+
 .fc-head{
 background-color: #919196;
 }
 .fc-toolbar.fc-header-toolbar{
+
   margin-bottom: 0em;
   margin:3px;
   color: #919196;
 }
-/*<<<<<<< HEAD
-=======
 
 
->>>>>>> 34de67f1631ac964e9207bdac377605edad859e8*/
-    #calendar {
+  .fc-view-container {
+    background-color: #efefef;
+  }
+ #calendar {
       float: right;
       width: 74%;
       margin-bottom: 1em;
@@ -94,6 +121,8 @@ background-color: #919196;
       border: solid 9px;
     border-color: #d9d9db;
     }
+    
+
     #sidebar {
       width: 25%;
       background-color: #efefef;
@@ -101,8 +130,8 @@ background-color: #919196;
       position: fixed!important;
       z-index: 1;
       overflow: auto
-      
     }
+
     #sidebarToggle {
       cursor: pointer;
       position: absolute;
@@ -111,15 +140,17 @@ background-color: #919196;
       right: 0;
       top: 50%;
       z-index: 100;
-      /*-webkit-transform: rotate(-90deg);
+      -webkit-transform: rotate(-90deg);
       -moz-transform: rotate(-90deg);
       -o-transform: rotate(-90deg);
       -ms-transform: rotate(-90deg);
-      transform: rotate(-90deg);*/
+      transform: rotate(-90deg);
     }
+
     #taskDetails {
       display: none;
     }
+
     .modalContainer {
       background-color: #fefefe;
       margin: 15% auto;
@@ -127,6 +158,7 @@ background-color: #919196;
       border: 1px solid #888;
       width: 40%;
     }
+
     .modal {
       position: fixed;
       /* Stay in place */
@@ -145,55 +177,50 @@ background-color: #919196;
       background-color: rgba(0, 0, 0, 0.4);
       /* Black w/ opacity */
     }
+
     .modal .close {
       cursor: pointer;
       font-size: 2em;
       float: right;
     }
+
     .modalContent {
       width: 90%;
     }
+
+
     .task {
       cursor: pointer;
     }
+
     a.claimed {
       background-color: green;
       border-color: green;
     }
+
     a.unclaimed {
       background-color: red;
       border-color: red;
     }
-    #nav{
-      height: 40px;
-      background-color: #919196;
-    }
-  p{
-    font-size: 25px;
-    color: #fff;
-  }
+
   </style>
 
 </head>
 
-<body>
-<nav class="navbar navbar-default" id="nav">
-  <div class="container-fluid">
-    <p>Kalena</p>
-  </div>
-</nav>
+<body id={{calinfo.calendarId}}>
 
   <div class="sidebar bar-block" id="sidebar">
-    <div id="sidebarToggle">&#10094;&#10094;</div>
+    <div id="sidebarToggle">hide</div>
     <!-- <button id="close"> &times;</button> -->
     <h3>Members</h3>
     <ul>
-      <li><a href="#">Ada Lovelace</a> <span class="admin">(admin)</span></li>
-      <li><a href="#">Charles Babbage</a></li>
-      <li><a href="#">Edith Clarke</a></li>
-      <li><a href="#">Grace Hopper</a></li>
-      <li><a href="#">Radia Perlman</a></li>
-      <li><a href="#">Steve Wozniak</a></li>
+      {{#each meminfo}}
+        {{#if @first}}
+          <li><a href="#">{{this.firstName}}</a><span class="admin"> (admin)</span></li>
+        {{else}}
+          <li><a href="#">{{this.firstName}}</a></li>
+        {{/if}}
+      {{/each}}
     </ul>
 
     <button id="addtask">Add task</button>
@@ -216,6 +243,8 @@ background-color: #919196;
   <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+
+  <script src="https://unpkg.com/flatpickr"></script>
 
   <script src="/javascripts/calendar.js"></script>
 

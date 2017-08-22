@@ -6,6 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var models = require('./models');
 var passport = require('passport');
+var session = require('express-session');
+var SequelizeStore = require('connect-session-sequelize')(session.Store);
 var passportLocalSequelize = require('passport-local-sequelize');
 var uuid = require('uuid/v4');
 
@@ -14,6 +16,8 @@ var UserDB = passportLocalSequelize.defineUser(models.sequelize, {
     lastName: models.Sequelize.STRING,
     uuid: models.Sequelize.STRING,
     email: models.Sequelize.STRING
+}, {
+    usernameField: "email"
 });
 
 
@@ -24,7 +28,6 @@ var messageRoute = require('./routes/messageRoute');
 var taskRoute = require('./routes/taskRoute');
 
 var app = express();
-
 
 var Session = models.sequelize.define('Sessions', {
     sid: {
@@ -52,13 +55,11 @@ var store = new SequelizeStore({
     db: models.sequelize
 });
 
-
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use(session({
     secret: 'super secret session key please do not do a leak',
     resave: false,
@@ -70,16 +71,13 @@ store.sync({
     force: true
 });
 
-
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'express-handlebars');
 
 app.use(passport.initialize());
-app.use(passport.session());
 passport.use(UserDB.createStrategy());
 passport.serializeUser(UserDB.serializeUser());
 passport.deserializeUser(UserDB.deserializeUser());
-
 
 app.post('/login', function(req, res, next){
     passport.authenticate('local', function(err, user){
@@ -96,13 +94,9 @@ app.post('/login', function(req, res, next){
                 redirect:'/calendar'
             });
     })(req, res, next);
-
-app.post('/login', passport.authenticate('local'), function(req, res){
-    res.send('logged in');
-
 });
 
-app.post('/create', function(req, res){
+app.post('/create', function (req, res) {
     var newUser = {
         uuid: uuid(),
         firstName: req.body.firstName,
@@ -110,7 +104,6 @@ app.post('/create', function(req, res){
         email: req.body.email,
         username: req.body.firstName + req.body.lastName
     };
-
     UserDB.register(newUser, req.body.password, function (err, result) {
         if(err) res.send({
             valid: false,
@@ -127,16 +120,6 @@ app.post('/create', function(req, res){
 
 app.get('/logout', function (req, res) {
     req.session.destroy();
-
-    UserDB.register(newUser, req.body.password, function(err, result){
-        console.log(err, res);
-        res.send(result);
-    });
-});
-
-app.get('/logout', function(req, res){
-    req.logout();
-
     res.send('loggedout');
 });
 
@@ -166,5 +149,5 @@ app.use(function (err, req, res, next) {
     res.status(err.status || 500);
     res.render('error.hbs');
 });
-});
+
 module.exports = app;
