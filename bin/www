@@ -4,15 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../app');
+var app = require('../app').app;
 var debug = require('debug')('express-sequelize');
 var http = require('http');
 var models = require('../models');
-
-var uuid = require('uuid/v4');
-
-var session = require('express-session');
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 /**
  * Get port from environment and store in Express.
@@ -23,7 +18,13 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
-var server = http.createServer(app);
+// var server = http.createServer(app);
+
+// See https://github.com/onedesign/express-socketio-tutorial
+var server = require('../app').server;
+
+
+
 
 models.sequelize.sync({
     //force: true
@@ -155,3 +156,8 @@ function onListening() {
         : 'port ' + addr.port;
     debug('Listening on ' + bind);
 }
+
+
+//for socket.io
+
+module.exports = "testing one two three";

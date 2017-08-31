@@ -1,252 +1,171 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>CALENDAR NAME: {{calinfo.calendarName}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CALENDAR NAME: {{calinfo.calendarName}}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto:100|Saira+Extra+Condensed" rel="stylesheet">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css"/>
+    <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
-  <link rel="stylesheet" href="/stylesheets/style.css" >
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
-  <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto:100|Saira+Extra+Condensed" rel="stylesheet">
+    <style>
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/flatpickr/dist/flatpickr.min.css">
+        body {
+            padding: 0;
+        }
 
-  <style>
-body{
-    padding: 0;
-    background-color: #fff;
-  }
-  html{
-    background-color: #fff;
-  }
-  .fc-month-button fc-button fc-state-default fc-corner-right fc-state-active{
-  color:#fff !important;
-}
-  .fc .fc-button-group>:first-child{
-    background-color: #4897D8 !important;
-    border-top-left-radius: 20px !important;
-    border-bottom-left-radius: 20px !important;
-    color: #000;
-    font-weight: bold;
-    border: solid 2px;
-    border-color: #4897D8;
-  }
-  #calendar .fc .fc-button-group>:first-child:visited{
-    background-color: red;
-  }
-  /*.fc-state-default.fc-corner-right {
-    border-top-right-radius: 26px !important;
-    border-bottom-right-radius: 26px !important;
-    color: #4897D8;
-    font-weight: bold;
-    border: solid 2px;
-    border-color: #4897D8;
-}*/
-  .fc-state-default.fc-corner-right {
-    border-top-right-radius: 26px !important;
-    border-bottom-right-radius: 26px !important;
-    color: #000;
-    font-weight: bold;
-    border: solid 2px;
-    border-color: #4897D8;
-    background-color: #4897D8;
-    
-}
-.fc-state-default.fc-corner-left button{
-  background-color: #4897D8 !important;
-  }
-.fc-state-default.fc-corner-left {
-   
-    border-top-right-radius: 20px !important;
-    border-bottom-right-radius: 20px !important;
-    color: #000;
-    font-weight: bold;
-    border: solid 2px;
-    border-color: #4897D8;
-    background-color: #4897D8 !important;
-}
-.fc-state-default.fc-corner-left {
-    border-top-left-radius: 20px !important;
-    border-bottom-left-radius: 20px !important;
-    color: #000;
-    font-weight: bold;
-    border: solid 2px;
-    border-color: #4897D8;
-    background-color: #4897D8;
-  
-}
-.fc .fc-button-group>*{
-   background-color: #4897D8 !important;
-    color: #000;
-    font-weight: bold;
-    border: solid 2px;
-    border-color: #4897D8;  
-}
-.fc .fc-button-group>*:visited{
-  color:red;
+        .fc-view-container {
+            background-color: #efefef;
+        }
 
-}
+        #calendar {
+            float: right;
+            width: 75%;
+        }
 
+        #sidebar {
+            width: 25%;
+            background-color: #efefef;
+            height: 100%;
+            position: fixed !important;
+            z-index: 1;
+            overflow: auto
+        }
 
+        #sidebarToggle {
+            cursor: pointer;
+            position: absolute;
+            padding: 0;
+            margin: 0;
+            right: 0;
+            top: 50%;
+            z-index: 100;
+            -webkit-transform: rotate(-90deg);
+            -moz-transform: rotate(-90deg);
+            -o-transform: rotate(-90deg);
+            -ms-transform: rotate(-90deg);
+            transform: rotate(-90deg);
+        }
 
-.fc-icon-right-single-arrow:after{
-  color: #000;
-}
+        #taskDetails {
+            display: none;
+        }
 
+        .modalContainer {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%;
+        }
 
-.fc-head{
-background-color: #919196;
-}
-.fc-toolbar.fc-header-toolbar{
+        .modal {
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgb(0, 0, 0);
+            /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+        }
 
-  margin-bottom: 0em;
-  margin:3px;
-  color: #919196;
-}
+        .modal .close {
+            cursor: pointer;
+            font-size: 2em;
+            float: right;
+        }
 
+        .modalContent {
+            width: 90%;
+        }
 
-  .fc-view-container {
-    background-color: #efefef;
-  }
- #calendar {
-      float: right;
-      width: 74%;
-      margin-bottom: 1em;
-      border-left: solid 8px;
-      border: solid 9px;
-    border-color: #d9d9db;
-    }
-    
+        .task {
+            cursor: pointer;
+        }
 
-    #sidebar {
-      width: 25%;
-      background-color: #efefef;
-      height: 100%;
-      position: fixed!important;
-      z-index: 1;
-      overflow: auto
-    }
+        a.claimed {
+            background-color: green;
+            border-color: green;
+        }
 
-    #sidebarToggle {
-      cursor: pointer;
-      position: absolute;
-      padding: 0;
-      margin: 0;
-      right: 0;
-      top: 50%;
-      z-index: 100;
-      -webkit-transform: rotate(-90deg);
-      -moz-transform: rotate(-90deg);
-      -o-transform: rotate(-90deg);
-      -ms-transform: rotate(-90deg);
-      transform: rotate(-90deg);
-    }
+        a.unclaimed {
+            background-color: red;
+            border-color: red;
+        }
 
-    #taskDetails {
-      display: none;
-    }
-
-    .modalContainer {
-      background-color: #fefefe;
-      margin: 15% auto;
-      padding: 20px;
-      border: 1px solid #888;
-      width: 40%;
-    }
-
-    .modal {
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Sit on top */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0);
-      /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
-      /* Black w/ opacity */
-    }
-
-    .modal .close {
-      cursor: pointer;
-      font-size: 2em;
-      float: right;
-    }
-
-    .modalContent {
-      width: 90%;
-    }
-
-
-    .task {
-      cursor: pointer;
-    }
-
-    a.claimed {
-      background-color: green;
-      border-color: green;
-    }
-
-    a.unclaimed {
-      background-color: red;
-      border-color: red;
-    }
-
-  </style>
+    </style>
 
 </head>
 
 <body id={{calinfo.calendarId}}>
 
-  <div class="sidebar bar-block" id="sidebar">
+<div class="sidebar bar-block" id="sidebar">
     <div id="sidebarToggle">hide</div>
     <!-- <button id="close"> &times;</button> -->
+    <img src="../assets/kalenaLogoAlone.png" alt="logo">
     <h3>Members</h3>
     <ul>
-      {{#each meminfo}}
-        {{#if @first}}
-          <li><a href="#">{{this.firstName}}</a><span class="admin"> (admin)</span></li>
-        {{else}}
-          <li><a href="#">{{this.firstName}}</a></li>
-        {{/if}}
-      {{/each}}
+        {{#each meminfo}}
+            {{#if @first}}
+                <li><a href="#">{{this.firstName}}</a><span class="admin"> (admin)</span></li>
+            {{else}}
+                <li><a href="#">{{this.firstName}}</a></li>
+            {{/if}}
+        {{/each}}
     </ul>
 
     <button id="addtask">Add task</button>
-
+    <br>
+    <a href="/messages/api/{{calinfo.calendarId}}"><button><i class="fa fa-comments" aria-hidden="true"></i></button></a>
    </div>
+   <div>
+    <input type="text" id="inviteEmail" class="invite" style="display: none">
+    <button id="sendInvite" class="invite" style="display: none;">Send Invite</button>
 
+</div>
+
+<div class="calendarContainer">
   <div id="calendar"></div>
+</div>
 
-  <!-- Modals -->
-  <div id="taskDetails" class="modal">
+
+<!-- Modals -->
+<div id="taskDetails" class="modal">
     <div class="modalContainer">
-      <div class="close">&times;</div>
-      <div class="modalContent">
-      </div>
-      <div class="claimStatus">
-      </div>
+        <div class="close">&times;</div>
+        <div class="modalContent">
+        </div>
+        <div class="claimStatus">
+        </div>
     </div>
-  </div>
+</div>
 
-  <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
 
-  <script src="https://unpkg.com/flatpickr"></script>
+<script src="https://unpkg.com/flatpickr"></script>
 
-  <script src="/javascripts/calendar.js"></script>
+<script src="/javascripts/calendar.js"></script>
+
+<script type="text/javascript">
+
+</script>
 
 </body>
 
