@@ -20,3 +20,4 @@ On the **Front-end** side, we decided to focus on simple, clean and intuitive UX
 * [Kalena](http://www.kalena.me/) - Create your own Kalenda Calendar!
 * Step by step
 ![How it works](/public/assets/kalenaDisplay.png)
+http://www.kalena.me/
